@@ -111,6 +111,7 @@ public class InpuSoalActivity extends AppCompatActivity {
                         }).show();
             }
         });
+
     }
 
 
@@ -138,6 +139,7 @@ public class InpuSoalActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 sukses, Toast.LENGTH_LONG).show();
                         getSoal();
+                        checkNomor();
                     } else {
 
                         // Error occurred in registration. Get the error
@@ -203,6 +205,7 @@ public class InpuSoalActivity extends AppCompatActivity {
                     if(!error){
                         String nomor       = jObj.getString("soalKe");
                         nomer.setText(nomor);
+                        checkNomor();
                     }else {
                         String error_msg = jObj.getString("error_msg");
                         Toast.makeText(getApplicationContext(),
@@ -267,6 +270,8 @@ public class InpuSoalActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),
                                 sukses, Toast.LENGTH_LONG).show();
                         getSoal();
+                        isiQuis.setEnabled(true);
+                        nomer.setVisibility(View.VISIBLE);
                     } else {
 
                         // Error occurred in registration. Get the error
@@ -304,6 +309,17 @@ public class InpuSoalActivity extends AppCompatActivity {
         strReq.setRetryPolicy(policy);
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void checkNomor(){
+        final String cur = nomer.getText().toString().trim();
+        final int inte = Integer.parseInt(cur);
+        if(inte >= 4){
+            isiQuis.setEnabled(false);
+            nomer.setVisibility(View.INVISIBLE);
+            Toast.makeText(getApplicationContext(),
+                    "Anda Telah Selesai Membuat Pertanyaan, Silahkan Anda Cek Ulang Pertanyaannya Kembali", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void showDialog() {
