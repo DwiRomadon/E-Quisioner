@@ -44,7 +44,7 @@ public class EditQuis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_quis);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Edit Soal");
+        setTitle("Edit Quis");
         overridePendingTransition(R.anim.slidein, R.anim.slideout);
 
         txtNo = (EditText)findViewById(R.id.no);
@@ -64,7 +64,7 @@ public class EditQuis extends AppCompatActivity {
         pDialog.setMessage("Please Wait.....");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Request.Method.POST, Config_URL.EDIT_QUIS, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.POST, Config_URL.GET_QUIS, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {

@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="*Note : 'Sebelum membuat pertanyaan baru,silahkan hapus pertanyaan lama terlebih dahulu dengan cara menekan tombol HAPUS'"
+        android:text="*Note : Jika ingin membuat pertanyaan baru,silahkan hapus pertanyaan lama terlebih dahulu dengan cara menekan tombol HAPUS"
         android:id="@+id/textView"
         android:textStyle="italic"
         android:textColor="@color/btn_context_menu_text_red"
@@ -41,15 +41,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/no"
-                android:layout_width="fill_parent"
-                android:layout_height="43dp"
-                android:hint="No"
-                android:inputType="number"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@drawable/btn_submit_editext"/>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/no"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nomor" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

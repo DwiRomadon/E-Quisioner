@@ -57,6 +57,7 @@ public class InpuSoalActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slidein, R.anim.slideout);
 
         nomer = (TextView) findViewById(R.id.no);
+        nomer.setEnabled(false);
         isiQuis = (EditText) findViewById(R.id.txtIsi);
         submit = (Button) findViewById(R.id.btnSubmit);
         btnHapus = (Button) findViewById(R.id.btnHapus);
@@ -86,6 +87,7 @@ public class InpuSoalActivity extends AppCompatActivity {
                 isiQuis.setText(null);
             }
         });
+        getSoal();
         //x += 1;
         //nomer.setText(String.valueOf(x));
 
@@ -135,6 +137,7 @@ public class InpuSoalActivity extends AppCompatActivity {
                         String sukses = jObj.getString("success");
                         Toast.makeText(getApplicationContext(),
                                 sukses, Toast.LENGTH_LONG).show();
+                        getSoal();
                     } else {
 
                         // Error occurred in registration. Get the error
@@ -177,6 +180,67 @@ public class InpuSoalActivity extends AppCompatActivity {
     }
 
     /*
+    Function get pertemuan
+     */
+    public void getSoal(){
+        //Tag used to cancel the request
+        String tag_string_req = "req";
+
+        pDialog.setMessage("Loading.....");
+        showDialog();
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Config_URL.URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(String.valueOf(getApplication()), "Response: " + response.toString());
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    if(!error){
+                        String nomor       = jObj.getString("soalKe");
+                        nomer.setText(nomor);
+                    }else {
+                        String error_msg = jObj.getString("error_msg");
+                        Toast.makeText(getApplicationContext(),
+                                error_msg, Toast.LENGTH_LONG).show();
+                    }
+
+                }catch (JSONException e){
+                    //JSON error
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener(){
+
+            @Override
+            public void onErrorResponse(VolleyError error){
+                Log.e(String.valueOf(getApplication()), "Login Error : " + error.getMessage());
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please Check Your Network Connection", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("tag","getSoalke");
+                return params;
+            }
+        };
+
+        strReq.setRetryPolicy(policy);
+        AppController.getInstance().addToRequestQueue(strReq,tag_string_req);
+
+    }
+
+    /*
       Method untuk menghapus semua data
      */
     public void deleteAllData(){
@@ -202,6 +266,7 @@ public class InpuSoalActivity extends AppCompatActivity {
                         String sukses = jObj.getString("success");
                         Toast.makeText(getApplicationContext(),
                                 sukses, Toast.LENGTH_LONG).show();
+                        getSoal();
                     } else {
 
                         // Error occurred in registration. Get the error

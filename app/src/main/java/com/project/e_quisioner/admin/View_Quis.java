@@ -60,7 +60,7 @@ public class View_Quis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view__quis);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Lihat Soal");
+        setTitle("View Quis");
         overridePendingTransition(R.anim.slidein, R.anim.slideout);
         list = (ListView) findViewById(R.id.list_news);
         newsList.clear();
@@ -90,7 +90,7 @@ public class View_Quis extends AppCompatActivity {
         pDialog.setMessage("Please Wait.....");
         showDialog();
         // Creating volley request obj
-        JsonArrayRequest arrReq = new JsonArrayRequest(Config_URL.URL,
+        JsonArrayRequest arrReq = new JsonArrayRequest(Config_URL.VIEW_QUIS,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -102,10 +102,7 @@ public class View_Quis extends AppCompatActivity {
                                 try {
 
                                     JSONObject obj = response.getJSONObject(i);
-                                    String error = obj.getString("error");
 
-
-                                    if(error.equals("false")){
                                         NewsDataAdmin news = new NewsDataAdmin();
                                         news.setId(obj.getString(TAG_ID));
                                         news.setNomor(obj.getString("nomor"));
@@ -117,7 +114,6 @@ public class View_Quis extends AppCompatActivity {
                                         newsList.add(news);
 
                                         Log.d(TAG, "offSet " + offSet);
-                                    }
 
 
                                 } catch (JSONException e) {
@@ -138,14 +134,7 @@ public class View_Quis extends AppCompatActivity {
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 hideDialog();
             }
-        }){
-                @Override
-                protected Map<String, String> getParams(){
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("tag", "getAlldataSoal");
-                    return params;
-                }
-            };
+        });
         arrReq.setRetryPolicy(policy);
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(arrReq);

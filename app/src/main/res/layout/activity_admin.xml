@@ -147,13 +147,13 @@
                 android:layout_height="90dp"
                 android:id="@+id/btn1"
                 android:layout_gravity="center"
-                android:src="@drawable/datauser"
+                android:src="@drawable/piechart"
                 android:background="@drawable/btn_submit_rounded_pink" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:text="Data User"
+                android:text="Hasil"
                 android:textAllCaps="true"
                 android:gravity="center_vertical|center_horizontal"
                 android:textSize="12dp"
@@ -202,13 +202,14 @@
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:id="@+id/btn4"
+                android:src="@drawable/datauser"
                 android:layout_gravity="center"
                 android:background="@drawable/btn_submit_rounded_green" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:text="Testing"
+                android:text="Data User"
                 android:textAllCaps="true"
                 android:gravity="center_vertical|center_horizontal"
                 android:textSize="12dp"
